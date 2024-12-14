@@ -1,23 +1,39 @@
-# Python Template
+# IntelliCook Ingredient Recognition
 
-This is a template for Python projects.
+This is the ingredient recognition service of IntelliCook.
 
 ## Environment Setup
 
+### Docker
+
+We use [Docker](https://www.docker.com) and [Docker Compose](https://docs.docker.com/compose) to manage the environment in both development and production.
+
+Before starting anything, you have to define the environment variables in the `.env` file. You can copy the `.env.example` file and fill in the values.
+```bash
+cp .env.example .env
+```
+
+With Docker Compose, you can run the services in the `docker-compose.yml` file:
+```bash
+docker compose up
+```
+
+**Note**: Your configurations may convert the line endings of `entrypoint.sh` to CRLF. You need to convert it back to LF for docker to run the script.
+
 ### Python
 
-We use Python \<version>, so make sure you have that installed.
+We use Python 3.12.2, so make sure you have that installed.
 
 You could use [pyenv](https://github.com/pyenv/pyenv) or [pyenv-win](https://github.com/pyenv-win/pyenv-win) (Windows is not recommended to install pyenv because it does not get native support) to manage your Python versions.
 
 Install the Python version you want to use.
 ```bash
-pyenv install <version>
+pyenv install 3.12.2
 ```
 
 Specify the version for this directory.
 ```bash
-pyenv local <version>
+pyenv local 3.12.2
 ```
 
 To check your Python version, run `python --version` in your terminal.
@@ -150,4 +166,13 @@ git push -u origin <branch>
 After the first time you set the upstream branch, you can simply push without specifying the branch.
 ```bash
 git push
+```
+
+### API Protocol
+
+We use [gRPC](https://grpc.io) and [Protocol Buffers](https://protobuf.dev) for the communication between the services.
+
+When you make changes to the `.proto` files in the `protos` directory, you need to regenerate the Python files in the `grpcs` directory:
+```bash
+python -m grpc_tools.protoc --proto_path=. --python_out=. --grpc_python_out=. --pyi_out=. ./protos/*.proto
 ```

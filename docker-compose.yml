@@ -1,0 +1,10 @@
+services:
+  api:
+    image: intellicook.ingredientrecognition.api
+    build: .
+    volumes:
+      - .:/usr/app
+    ports:
+      - 2507:2507
+    env_file:
+      - .env

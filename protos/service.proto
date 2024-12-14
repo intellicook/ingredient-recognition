@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+import "protos/recognize_ingredients.proto";
+
+option csharp_namespace = "IntelliCook.IngredientRecognition.Client";
+
+service IngredientRecognitionService {
+    rpc RecognizeIngredientsStream (stream RecognizeIngredientsStreamRequest) returns (RecognizeIngredientsResponse);
+}

@@ -176,3 +176,21 @@ When you make changes to the `.proto` files in the `protos` directory, you need 
 ```bash
 python -m grpc_tools.protoc --proto_path=. --python_out=. --grpc_python_out=. --pyi_out=. ./protos/*.proto
 ```
+
+### Testing
+
+We use [Pytest](https://pytest.org) for testing.
+
+The requirements for testing is different, it is in the `test-requirements.txt` file.
+
+The test requirements is a subset of the main requirements without the AI related packages, the imports of them are mocked in `tests/conftest.py`.
+
+If you want to change the test requirements, you should add entries in `test-excluded-requirements.txt` then geneerate the `test-requirements.txt` file:
+```bash
+.\generate-test-requirements.ps
+```
+
+To run the tests:
+```bash
+pytest
+```

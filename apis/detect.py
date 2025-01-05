@@ -4,6 +4,7 @@ import io
 from protos.recognize_ingredients_pb2 import RecognizeIngredientsIngredient
 
 def detect(byte_list: bytes):
+    """Detect ingredients in the provided image bytes."""
     # Convert bytes to a BytesIO object
     image_stream = io.BytesIO(byte_list)
     

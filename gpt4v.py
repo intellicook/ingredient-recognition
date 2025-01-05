@@ -20,6 +20,7 @@ keys = {"AZURE_OPENAI_KEY": getenv("AZURE_OPENAI_API_KEY"),
 
 # Function to encode a local image into data URL 
 def local_image_to_data_url(image_path):
+    """Encode a local image into a data URL."""
     # Guess the MIME type of the image based on the file extension
     mime_type, _ = guess_type(image_path)
     if mime_type is None:
@@ -33,36 +34,34 @@ def local_image_to_data_url(image_path):
     return f"data:{mime_type};base64,{base64_encoded_data}"
 
 class GPT4VBot():
-    def __init__(self, system_prompt=None) -> None:
+    """Class for interacting with the GPT-4V model."""
 
+    def __init__(self, system_prompt=None) -> None:
+        """Initialize the GPT4VBot with optional system prompt."""
         if system_prompt is not None:
-            self.fresh_conversation=[{
+            self.fresh_conversation = [{
                 "role": "system", 
                 "content": system_prompt
-                }]
+            }]
         else:
-            self.fresh_conversation=[]
+            self.fresh_conversation = []
         self.deployment_name = keys["AZURE_OPENAI_DEPLOYMENT_NAME"]
         self.endpoint = keys["AZURE_OPENAI_ENDPOINT"]
         self.client = AzureOpenAI(
-                api_key=keys["AZURE_OPENAI_KEY"],  
-                api_version="2023-12-01-preview",
-                base_url=f"{self.endpoint}/openai/deployments/{self.deployment_name}"
-            )
+            api_key=keys["AZURE_OPENAI_KEY"],  
+            api_version="2023-12-01-preview",
+            base_url=f"{self.endpoint}/openai/deployments/{self.deployment_name}"
+        )
 
-        
     def query(self, user_input, image_path=None):
-
+        """Query the GPT-4V model with user input and optional image."""
         if image_path is not None:
             data_url = local_image_to_data_url(image_path)
             self.fresh_conversation.append({
                 "role": "user",
                 "content": [
                     {"type": "text", "text": user_input},
-                    {
-                        "type": "image_url",
-                        "image_url":data_url,
-                    },
+                    {"type": "image_url", "image_url": data_url},
                 ],
             })
         else:
@@ -79,13 +78,14 @@ class GPT4VBot():
             max_tokens=2000
         )
 
-        ## append the response to the conversation
+        # Append the response to the conversation
         self.fresh_conversation.append({"role": "assistant", "content": response.choices[0].message.content})
         out = response.choices[0].message.content
 
         return out
 
     def detect_ingredients(self, image_path):
+        """Detect ingredients in the provided image."""
         user_input = (
             "You are an AI model specialized in food ingredient detection. "
             "Analyze the provided image and identify all visible food ingredients and the kind of fresh produce. "
@@ -116,7 +116,7 @@ if __name__ == "__main__":
     try:
         # Remove markdown code block and clean the string
         response = response.replace('```json', '').replace('```', '').strip()
-        # Parse Json
+        # Parse JSON
         response_json = json.loads(response)
         ingredients = response_json.get('ingredients', [])
         synonyms = response_json.get('synonyms', [])

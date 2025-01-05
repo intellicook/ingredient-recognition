@@ -3,6 +3,7 @@ from protos.recognize_ingredients_pb2 import RecognizeIngredientsStreamRequest
 from protos.service_pb2_grpc import IngredientRecognitionServiceStub
 
 def send_image():
+    """Send an image to the ingredient recognition service."""
     # Open the image file
     with open("tests/iw.png", "rb") as file:
         image_data = file.read()

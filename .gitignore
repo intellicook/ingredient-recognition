@@ -164,3 +164,6 @@ cython_debug/
 
 # Training data
 model/data
+
+# Backup files
+bk/

@@ -1,7 +1,6 @@
 from typing import Iterable
 
 import grpc
-from .detect import detect
 
 from protos.recognize_ingredients_pb2 import (
     RecognizeIngredientsIngredient,
@@ -9,6 +8,8 @@ from protos.recognize_ingredients_pb2 import (
     RecognizeIngredientsStreamRequest,
 )
 from protos.service_pb2_grpc import IngredientRecognitionServiceServicer
+
+from .detect import detect
 
 
 class IngredientRecognitionServicer(IngredientRecognitionServiceServicer):
@@ -42,7 +43,7 @@ class IngredientRecognitionServicer(IngredientRecognitionServiceServicer):
                     width=0.3,
                     height=0.1,
                 ),
-            ]
+            ],
             ingredients=result
             # field defined in protos/recognize_ingredients.proto
         )

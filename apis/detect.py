@@ -1,16 +1,18 @@
-from PIL import Image
 import io
 
+from PIL import Image
+
 from protos.recognize_ingredients_pb2 import RecognizeIngredientsIngredient
+
 
 def detect(byte_list: bytes):
     """Detect ingredients in the provided image bytes."""
     # Convert bytes to a BytesIO object
     image_stream = io.BytesIO(byte_list)
-    
+
     # Open the image using PIL
     image = Image.open(image_stream)
-    
+
     # Perform any image processing or detection here
     # For now, we'll just show the image
     image.show()

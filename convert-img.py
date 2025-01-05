@@ -1,6 +1,8 @@
 import grpc
+
 from protos.recognize_ingredients_pb2 import RecognizeIngredientsStreamRequest
 from protos.service_pb2_grpc import IngredientRecognitionServiceStub
+
 
 def send_image():
     """Send an image to the ingredient recognition service."""
@@ -23,6 +25,7 @@ def send_image():
 
     # Process the response if needed
     print(response)
+
 
 if __name__ == "__main__":
     send_image()

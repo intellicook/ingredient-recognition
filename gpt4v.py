@@ -1,24 +1,18 @@
-# from azure.core.credentials import AzureKeyCredential
-# from azure.search.documents import SearchClient
-# from azure.search.documents.indexes import SearchIndexClient
-# from azure.search.documents.indexes.models import *
-# import openai
-from openai import AzureOpenAI
-import json
-
 import base64
-from mimetypes import guess_type
-
+import json
 import time
-from dotenv import load_dotenv
+from mimetypes import guess_type
 from os import getenv
+
+from dotenv import load_dotenv
+from openai import AzureOpenAI
 
 load_dotenv()
 keys = {"AZURE_OPENAI_KEY": getenv("AZURE_OPENAI_API_KEY"),
         "AZURE_OPENAI_ENDPOINT": getenv("AZURE_OPENAI_ENDPOINT"),
         "AZURE_OPENAI_DEPLOYMENT_NAME": getenv("AZURE_OPENAI_DEPLOYMENT_NAME")}
 
-# Function to encode a local image into data URL 
+# Function to encode a local image into data URL
 def local_image_to_data_url(image_path):
     """Encode a local image into a data URL."""
     # Guess the MIME type of the image based on the file extension
@@ -40,7 +34,7 @@ class GPT4VBot():
         """Initialize the GPT4VBot with optional system prompt."""
         if system_prompt is not None:
             self.fresh_conversation = [{
-                "role": "system", 
+                "role": "system",
                 "content": system_prompt
             }]
         else:
@@ -48,7 +42,7 @@ class GPT4VBot():
         self.deployment_name = keys["AZURE_OPENAI_DEPLOYMENT_NAME"]
         self.endpoint = keys["AZURE_OPENAI_ENDPOINT"]
         self.client = AzureOpenAI(
-            api_key=keys["AZURE_OPENAI_KEY"],  
+            api_key=keys["AZURE_OPENAI_KEY"],
             api_version="2023-12-01-preview",
             base_url=f"{self.endpoint}/openai/deployments/{self.deployment_name}"
         )
@@ -73,7 +67,7 @@ class GPT4VBot():
             })
 
         response = self.client.chat.completions.create(
-            model=self.deployment_name, 
+            model=self.deployment_name,
             messages=self.fresh_conversation,
             max_tokens=2000
         )
@@ -103,7 +97,7 @@ class GPT4VBot():
 if __name__ == "__main__":
     # image_path = "model/data/Food Ingredient Recognition.v4i.yolov11/test/images/carrot_50_jpg.rf.a3066450bf92915fd9bfb23b6d0b1c5d.jpg"
     image_path = 'fridge.png'
-    
+
     gpt4v_bot = GPT4VBot()
     start_time = time.time()
     response = gpt4v_bot.detect_ingredients(image_path)

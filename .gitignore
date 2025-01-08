@@ -167,3 +167,6 @@ model/data
 
 # Backup files
 bk/
+
+output/
+temp/

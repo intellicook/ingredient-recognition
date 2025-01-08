@@ -23,6 +23,7 @@ def yolo_detect(image_path: str, threshold: float = 0.5):
                   'width': x2 - x1,
                   'height': y2 - y1
               })
+    print("yolo_detect: ", ingredients)
     return ingredients
 
 def visualize_detections(image_path: str, detections: list):

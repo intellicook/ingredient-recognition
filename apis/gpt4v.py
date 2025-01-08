@@ -96,7 +96,7 @@ class GPT4VBot():
 
 if __name__ == "__main__":
     # image_path = "model/data/Food Ingredient Recognition.v4i.yolov11/test/images/carrot_50_jpg.rf.a3066450bf92915fd9bfb23b6d0b1c5d.jpg"
-    image_path = 'fridge.png'
+    image_path = 'tests/fridge.png'
 
     gpt4v_bot = GPT4VBot()
     start_time = time.time()

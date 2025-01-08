@@ -28,22 +28,22 @@ class IngredientRecognitionServicer(IngredientRecognitionServiceServicer):
         result = detect(byte_list)
 
         return RecognizeIngredientsResponse(
-            ingredients=[
-                RecognizeIngredientsIngredient(
-                    name="Example 1",
-                    x=0.1,
-                    y=0.1,
-                    width=0.2,
-                    height=0.1,
-                ),
-                RecognizeIngredientsIngredient(
-                    name="Example 2",
-                    x=0.5,
-                    y=0.15,
-                    width=0.3,
-                    height=0.1,
-                ),
-            ],
+            # ingredients=[
+            #     RecognizeIngredientsIngredient(
+            #         name="Example 1",
+            #         x=0.1,
+            #         y=0.1,
+            #         width=0.2,
+            #         height=0.1,
+            #     ),
+            #     RecognizeIngredientsIngredient(
+            #         name="Example 2",
+            #         x=0.5,
+            #         y=0.15,
+            #         width=0.3,
+            #         height=0.1,
+            #     ),
+            # ],
             ingredients=result
             # field defined in protos/recognize_ingredients.proto
         )

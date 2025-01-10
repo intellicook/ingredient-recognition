@@ -43,29 +43,23 @@ def detect(byte_list: bytes):
     gpt4v_bot = GPT4VBot()
 
     # Detect ingredients using GPT-4V
-    gpt_response = gpt4v_bot.detect_ingredients(temp_image_path)
-    print("gpt: response: ", gpt_response)
+    gpt_ingredients = gpt4v_bot.detect_ingredients(temp_image_path)
+    print("gpt detection: ", gpt_ingredients)
 
-    # Reformat the response to Python lists
-    try:
-        # Remove markdown code block and clean the string
-        gpt_response = gpt_response.replace('```json', '').replace('```', '').strip()
-        # Parse JSON
-        gpt_response_json = json.loads(gpt_response)
-        gpt_ingredients = gpt_response_json.get('ingredients', [])
-        gpt_synonyms = gpt_response_json.get('synonyms', [])
-    except json.JSONDecodeError as e:
-        print(f"Error decoding JSON: {e}")
-        gpt_ingredients = []
-        gpt_synonyms = []
 
     # Combine YOLO and GPT-4V detected ingredients
     combined_ingredients = list(set(yolo_ingredients_name + gpt_ingredients))
-    print("combined: ingredients: ", combined_ingredients)
-    print("gpt: synonyms: ", gpt_synonyms)
+    print("combined ingredients: ", combined_ingredients)
+    # print("gpt: synonyms: ", gpt_synonyms)
+
+    gpt_synonyms = gpt4v_bot.generate_synonyms(combined_ingredients)
+    print("gpt synonyms: ", gpt_synonyms)
 
     # Combine combined ingredients and GPT-4V synonyms into one list
     combined_ingredients_and_synonyms = combined_ingredients + gpt_synonyms
+    # Remove duplicates
+    combined_ingredients_and_synonyms = list(set(combined_ingredients_and_synonyms))
+    print("combined: ingredients and synonyms: ", combined_ingredients_and_synonyms)
 
     ingredients = [
         RecognizeIngredientsIngredient(

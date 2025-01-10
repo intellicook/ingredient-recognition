@@ -84,15 +84,48 @@ class GPT4VBot():
             "You are an AI model specialized in food ingredient detection. "
             "Analyze the provided image and identify all visible food ingredients and the kind of fresh produce. "
             "You don't have to identify or make assumptions about specific brands and products. "
-            "For each detected ingredient, provide a list of possible synonyms. "
             "Respond ONLY with a valid JSON object in the following format, nothing else:\n"
             "{\n"
             "  \"ingredients\": [\"ingredient1\", \"ingredient2\"],\n"
-            "  \"synonyms\": [\"ingredient1_syn1\", \"ingredient2_syn1\", \"ingredient2_syn2\"]\n"
             "}"
         )
         response = self.query(user_input, image_path)
-        return response
+
+        # Reformat the response to Python lists
+        try:
+            # Remove markdown code block and clean the string
+            gpt_detection = response.replace('```json', '').replace('```', '').strip()
+            # Parse JSON
+            gpt_response_json = json.loads(gpt_detection)
+            gpt_ingredients = gpt_response_json.get('ingredients', [])
+        except json.JSONDecodeError as e:
+            print(f"Error decoding JSON: {e}")
+            gpt_ingredients = []
+        return gpt_ingredients
+
+    def generate_synonyms(self, ingredients):
+        """Generate synonyms for the given list of ingredients."""
+        user_input = (
+            "Provide a list of possible synonyms for the following food ingredients. Return the result as a JSON object in this format with only one entry:"
+            "{\n"
+            "  \"synonyms\": [\"synonym1\", \"synonym2\", \"synonym3\", ...]\n"
+            "}"
+        )
+        ingredients_text = ', '.join(ingredients)
+        user_input += f"\nIngredients list: {ingredients_text}"
+
+        response = self.query(user_input)
+        
+        # Reformat the response to a list of synonyms
+        try:
+            response = response.replace('```json', '').replace('```', '').strip()
+            response_json = json.loads(response)
+            synonyms = response_json.get('synonyms', [])
+        except json.JSONDecodeError as e:
+            print(f"Error decoding JSON: {e}")
+            synonyms = []
+
+        return synonyms
 
 if __name__ == "__main__":
     # image_path = "model/data/Food Ingredient Recognition.v4i.yolov11/test/images/carrot_50_jpg.rf.a3066450bf92915fd9bfb23b6d0b1c5d.jpg"

@@ -106,7 +106,8 @@ class GPT4VBot():
     def generate_synonyms(self, ingredients):
         """Generate synonyms for the given list of ingredients."""
         user_input = (
-            "Provide a list of possible synonyms for the following food ingredients. Return the result as a JSON object in this format with only one entry:"
+            "Provide a list of possible synonyms for the following food ingredients."
+            "Return the result as a JSON object in this format with only one entry:"
             "{\n"
             "  \"synonyms\": [\"synonym1\", \"synonym2\", \"synonym3\", ...]\n"
             "}"

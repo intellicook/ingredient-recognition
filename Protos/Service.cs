@@ -25,13 +25,16 @@ namespace IntelliCook.IngredientRecognition.Client {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
             "ChRQcm90b3Mvc2VydmljZS5wcm90bxoicHJvdG9zL3JlY29nbml6ZV9pbmdy",
-            "ZWRpZW50cy5wcm90bzKBAQocSW5ncmVkaWVudFJlY29nbml0aW9uU2Vydmlj",
-            "ZRJhChpSZWNvZ25pemVJbmdyZWRpZW50c1N0cmVhbRIiLlJlY29nbml6ZUlu",
-            "Z3JlZGllbnRzU3RyZWFtUmVxdWVzdBodLlJlY29nbml6ZUluZ3JlZGllbnRz",
-            "UmVzcG9uc2UoAUIrqgIoSW50ZWxsaUNvb2suSW5ncmVkaWVudFJlY29nbml0",
-            "aW9uLkNsaWVudGIGcHJvdG8z"));
+            "ZWRpZW50cy5wcm90bxoecHJvdG9zL3NlbGVjdF9pbmdyZWRpZW50LnByb3Rv",
+            "MuABChxJbmdyZWRpZW50UmVjb2duaXRpb25TZXJ2aWNlEmEKGlJlY29nbml6",
+            "ZUluZ3JlZGllbnRzU3RyZWFtEiIuUmVjb2duaXplSW5ncmVkaWVudHNTdHJl",
+            "YW1SZXF1ZXN0Gh0uUmVjb2duaXplSW5ncmVkaWVudHNSZXNwb25zZSgBEl0K",
+            "FlNlbGVjdEluZ3JlZGllbnRTdHJlYW0SHi5TZWxlY3RJbmdyZWRpZW50U3Ry",
+            "ZWFtUmVxdWVzdBofLlNlbGVjdEluZ3JlZGllbnRTdHJlYW1SZXNwb25zZSgB",
+            "MAFCK6oCKEludGVsbGlDb29rLkluZ3JlZGllbnRSZWNvZ25pdGlvbi5DbGll",
+            "bnRiBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
-          new pbr::FileDescriptor[] { global::IntelliCook.IngredientRecognition.Client.RecognizeIngredientsReflection.Descriptor, },
+          new pbr::FileDescriptor[] { global::IntelliCook.IngredientRecognition.Client.RecognizeIngredientsReflection.Descriptor, global::IntelliCook.IngredientRecognition.Client.SelectIngredientReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, null, null));
     }
     #endregion

@@ -49,6 +49,10 @@ namespace IntelliCook.IngredientRecognition.Client {
     static readonly grpc::Marshaller<global::IntelliCook.IngredientRecognition.Client.RecognizeIngredientsStreamRequest> __Marshaller_RecognizeIngredientsStreamRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::IntelliCook.IngredientRecognition.Client.RecognizeIngredientsStreamRequest.Parser));
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     static readonly grpc::Marshaller<global::IntelliCook.IngredientRecognition.Client.RecognizeIngredientsResponse> __Marshaller_RecognizeIngredientsResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::IntelliCook.IngredientRecognition.Client.RecognizeIngredientsResponse.Parser));
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Marshaller<global::IntelliCook.IngredientRecognition.Client.SelectIngredientStreamRequest> __Marshaller_SelectIngredientStreamRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::IntelliCook.IngredientRecognition.Client.SelectIngredientStreamRequest.Parser));
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Marshaller<global::IntelliCook.IngredientRecognition.Client.SelectIngredientStreamResponse> __Marshaller_SelectIngredientStreamResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::IntelliCook.IngredientRecognition.Client.SelectIngredientStreamResponse.Parser));
 
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     static readonly grpc::Method<global::IntelliCook.IngredientRecognition.Client.RecognizeIngredientsStreamRequest, global::IntelliCook.IngredientRecognition.Client.RecognizeIngredientsResponse> __Method_RecognizeIngredientsStream = new grpc::Method<global::IntelliCook.IngredientRecognition.Client.RecognizeIngredientsStreamRequest, global::IntelliCook.IngredientRecognition.Client.RecognizeIngredientsResponse>(
@@ -57,6 +61,14 @@ namespace IntelliCook.IngredientRecognition.Client {
         "RecognizeIngredientsStream",
         __Marshaller_RecognizeIngredientsStreamRequest,
         __Marshaller_RecognizeIngredientsResponse);
+
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Method<global::IntelliCook.IngredientRecognition.Client.SelectIngredientStreamRequest, global::IntelliCook.IngredientRecognition.Client.SelectIngredientStreamResponse> __Method_SelectIngredientStream = new grpc::Method<global::IntelliCook.IngredientRecognition.Client.SelectIngredientStreamRequest, global::IntelliCook.IngredientRecognition.Client.SelectIngredientStreamResponse>(
+        grpc::MethodType.DuplexStreaming,
+        __ServiceName,
+        "SelectIngredientStream",
+        __Marshaller_SelectIngredientStreamRequest,
+        __Marshaller_SelectIngredientStreamResponse);
 
     /// <summary>Service descriptor</summary>
     public static global::Google.Protobuf.Reflection.ServiceDescriptor Descriptor
@@ -100,6 +112,16 @@ namespace IntelliCook.IngredientRecognition.Client {
       public virtual grpc::AsyncClientStreamingCall<global::IntelliCook.IngredientRecognition.Client.RecognizeIngredientsStreamRequest, global::IntelliCook.IngredientRecognition.Client.RecognizeIngredientsResponse> RecognizeIngredientsStream(grpc::CallOptions options)
       {
         return CallInvoker.AsyncClientStreamingCall(__Method_RecognizeIngredientsStream, null, options);
+      }
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual grpc::AsyncDuplexStreamingCall<global::IntelliCook.IngredientRecognition.Client.SelectIngredientStreamRequest, global::IntelliCook.IngredientRecognition.Client.SelectIngredientStreamResponse> SelectIngredientStream(grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return SelectIngredientStream(new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual grpc::AsyncDuplexStreamingCall<global::IntelliCook.IngredientRecognition.Client.SelectIngredientStreamRequest, global::IntelliCook.IngredientRecognition.Client.SelectIngredientStreamResponse> SelectIngredientStream(grpc::CallOptions options)
+      {
+        return CallInvoker.AsyncDuplexStreamingCall(__Method_SelectIngredientStream, null, options);
       }
       /// <summary>Creates a new instance of client from given <c>ClientBaseConfiguration</c>.</summary>
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]

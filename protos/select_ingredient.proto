@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+option csharp_namespace = "IntelliCook.IngredientRecognition.Client";
+
+message SelectIngredientStreamRequest {
+    bytes image = 1;
+    optional int32 x = 2;
+    optional int32 y = 3;
+}
+
+message SelectIngredientStreamResponse {
+    bytes image = 1;
+    optional string name = 2;
+}

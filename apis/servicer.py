@@ -3,9 +3,12 @@ from typing import Iterable
 import grpc
 
 from protos.recognize_ingredients_pb2 import (
-    RecognizeIngredientsIngredient,
     RecognizeIngredientsResponse,
     RecognizeIngredientsStreamRequest,
+)
+from protos.select_ingredient_pb2 import (
+    SelectIngredientStreamRequest,
+    SelectIngredientStreamResponse,
 )
 from protos.service_pb2_grpc import IngredientRecognitionServiceServicer
 
@@ -47,3 +50,42 @@ class IngredientRecognitionServicer(IngredientRecognitionServiceServicer):
             ingredients=result
             # field defined in protos/recognize_ingredients.proto
         )
+
+    def SelectIngredientStream(
+        self,
+        request_iterator: Iterable[SelectIngredientStreamRequest],
+        context: grpc.ServicerContext,
+    ):
+        """Select ingredient from the stream of an image and a coordinate"""
+        byte_list = b""
+        x = None
+        y = None
+        for request in request_iterator:
+            byte_list += request.image
+            if request.HasField("x"):
+                x = request.x
+            if request.HasField("y"):
+                y = request.y
+
+        # TODO: Implement logics
+        import io
+
+        from PIL import Image, ImageDraw
+
+        name = "Example"
+        image_stream = io.BytesIO(byte_list)
+        image = Image.open(image_stream)
+        image = image.convert("RGB")
+        draw = ImageDraw.Draw(image)
+        draw.rectangle([x, y, x + 100, y + 100], outline="red", width=5)
+        result_stream = io.BytesIO()
+        image.save(result_stream, format="JPEG")
+        result_byte_list = result_stream.getvalue()
+
+        chunk_size = 4096
+        for i in range(0, len(result_byte_list), chunk_size):
+            chunk = result_byte_list[i : i + chunk_size]
+            response = SelectIngredientStreamResponse(image=chunk)
+            if i == 0:
+                response.name = name
+            yield response

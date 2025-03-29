@@ -6,6 +6,8 @@ from os import getenv
 
 from dotenv import load_dotenv
 from openai import AzureOpenAI
+import sys
+import ast
 
 load_dotenv()
 keys = {"AZURE_OPENAI_KEY": getenv("AZURE_OPENAI_API_KEY"),
@@ -135,23 +137,22 @@ if __name__ == "__main__":
     gpt4v_bot = GPT4VBot()
     start_time = time.time()
     response = gpt4v_bot.detect_ingredients(image_path)
+    if len(sys.argv) != 2:
+        print("Usage: python gpt4v.py \"['ingredient1', 'ingredient2', ...]\"")
+        sys.exit(1)
+
+    ingredients_input = sys.argv[1]
+    try:
+        ingredients_list = ast.literal_eval(ingredients_input)
+        if not isinstance(ingredients_list, list):
+            raise ValueError
+    except (ValueError, SyntaxError):
+        print("Invalid input format. Please provide a list of ingredients.")
+        sys.exit(1)
+
+    synonyms = gpt4v_bot.generate_synonyms(ingredients_list)
+    print("Synonyms:", synonyms)
     end_time = time.time()
     cost = end_time - start_time
     print("Time cost: {:.2f}s".format(cost))
     print(response)
-
-    # Reformat the response to Python lists
-    try:
-        # Remove markdown code block and clean the string
-        response = response.replace('```json', '').replace('```', '').strip()
-        # Parse JSON
-        response_json = json.loads(response)
-        ingredients = response_json.get('ingredients', [])
-        synonyms = response_json.get('synonyms', [])
-    except json.JSONDecodeError as e:
-        print(f"Error decoding JSON: {e}")
-        ingredients = []
-        synonyms = []
-
-    print("Ingredients:", ingredients)
-    print("Synonyms:", synonyms)

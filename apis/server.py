@@ -13,7 +13,7 @@ logger = logging.getLogger(__name__)
 
 def start():
     """Start the API server."""
-    port = api.configs.port
+    port = api.configs.port or 50051  # Default to 50051 if not set
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
     service_pb2_grpc.add_IngredientRecognitionServiceServicer_to_server(
         IngredientRecognitionServicer(), server
@@ -29,7 +29,10 @@ def start():
     reflection.enable_server_reflection(SERVICE_NAMES, server)
 
     # Start the server
-    server.add_insecure_port(f"[::]:{port}")
-    server.start()
-    logger.info(f"Server started, listening on {port}")
-    server.wait_for_termination()
+    try:
+        server.add_insecure_port(f"[::]:{port}")
+        server.start()
+        logger.info(f"Server started, listening on {port}")
+        server.wait_for_termination()
+    except Exception as e:
+        logger.error(f"Failed to start server: {e}")

@@ -1,11 +1,11 @@
 task: detect
 mode: train
-model: /home/ian/Documents/ingredient-recognition/model/train/pretrained/yolo11m.pt
-data: /home/ian/Documents/ingredient-recognition/model/data/Food Ingredient Recognition.v4i.yolov11/data.yaml
-epochs: 50
+model: /home/ian/intellicook/ingredient-recognition/model/train/pretrained/yolo11m.pt
+data: /home/ian/intellicook/ingredient-recognition/model/data/Food Ingredient Recognition.v4i.yolov11/data.yaml
+epochs: 100
 time: null
 patience: 100
-batch: 32
+batch: 16
 imgsz: 640
 save: true
 save_period: -1

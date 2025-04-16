@@ -3,7 +3,7 @@ import os
 from torch.utils.tensorboard import SummaryWriter
 from ultralytics import YOLO
 
-base_dir = '/home/ian/Documents/ingredient-recognition/model'
+base_dir = '/home/ian/intellicook/ingredient-recognition/model'
 
 
 def train_model():
@@ -24,8 +24,8 @@ def train_model():
     training_params = {
         'data': os.path.join(base_dir, 'data/Food Ingredient Recognition.v4i.yolov11/data.yaml'),
         'imgsz': 640,
-        'batch': 32,
-        'epochs': 50,
+        'batch': 16,
+        'epochs': 100,
         'plots': True,
         'device': 'cuda',
     }

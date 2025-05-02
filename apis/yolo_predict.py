@@ -43,7 +43,7 @@ def visualize_detections(image_path: str, detections: list):
 
 if __name__ == "__main__":
     # Example usage
-    image_path = 'tests/fridge.png'
+    image_path = 'tests/fridge2.png'
     detected_ingredients = yolo_detect(image_path, 0.35)
     print(detected_ingredients)
     visualize_detections(image_path, detected_ingredients)

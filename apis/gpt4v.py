@@ -57,7 +57,7 @@ class GPT4VBot():
                 "role": "user",
                 "content": [
                     {"type": "text", "text": user_input},
-                    {"type": "image_url", "image_url": data_url},
+                    {"type": "image_url", "image_url": {"url": data_url}},
                 ],
             })
         else:
@@ -132,7 +132,7 @@ class GPT4VBot():
 
 if __name__ == "__main__":
     # image_path = "model/data/Food Ingredient Recognition.v4i.yolov11/test/images/carrot_50_jpg.rf.a3066450bf92915fd9bfb23b6d0b1c5d.jpg"
-    image_path = 'tests/fridge.png'
+    image_path = 'tests/fridge2.png'
 
     gpt4v_bot = GPT4VBot()
     start_time = time.time()
